@@ -56,6 +56,44 @@ def terminal():
     b_get_1=Button(newWindow, text="RUN",command=get_1)
     b_get_1.place(x=200, y=100)
 
+def distance():
+    newWindow = Toplevel(MainWindow)
+    newWindow.title("Flight details with Specified Distance")
+    newWindow.geometry("2000x2000")
+    newWindow.configure(bg='black')
+    var = tkinter.StringVar()
+    var2 = tkinter.StringVar()
+    def get_1():
+        model = var.get()
+        dist=var2.get()
+        disp_1 = df.loc[((df['Flight_No']==model) & (df['Flight_distance']==dist)), ['Flight_No','Airlines_Name','Flight_distance']]
+        txt = Text(newWindow)
+        txt.pack()
+        class PrintToTXT(object):
+            def write(self, s):
+                txt.insert(END, s)
+        sys.stdout = PrintToTXT()
+        print(disp_1)
+    disp = tkinter.Label(newWindow, bg='black',fg='white',text="Enter Flight Number ", font=('bold', 20))
+    disp.place(x=20, y=30)
+    disp = tkinter.Entry(newWindow, bg='black',fg='white',textvariable=var)
+    disp.place(x=300, y=30)
+    disp2 = tkinter.Label(newWindow,bg='black',fg='white', text="Enter Distance ", font=('bold', 20))
+    disp2.place(x=20, y=60)
+    disp2 = tkinter.Entry(newWindow,bg='black',fg='white', textvariable=var2)
+    disp2.place(x=300, y=60)
+    b_get_1 = Button(newWindow, text="RUN", command=get_1)
+    b_get_1.place(x=200, y=100)
+
+def status():
+    newWindow = Toplevel(MainWindow)
+    newWindow.title("Flight details with Specified Distance")
+    newWindow.geometry("2000x2000")
+    newWindow.configure(bg='black')
+    var = tkinter.StringVar()
+    var2 = tkinter.StringVar()
+    var3=tkinter.StringVar()
+
 
 def exitWindow():
     sys.exit()
@@ -67,7 +105,11 @@ dispBtn.place(x=23, y=50)
 terBtn=tkinter.Button(MainWindow, bg='black',text="DISPLAY TERMINAL", command=terminal)
 terBtn.place(x=320, y=50)
 
+distBtn=tkinter.Button(MainWindow, bg='black',text="DISPLAY DISTANCE", command=distance)
+distBtn.place(x=600, y=50)
+
 extBtn=tkinter.Button(MainWindow, bg='black',text="Exit", command=exitWindow)
 extBtn.place(x=480, y=210)
 
 MainWindow.mainloop()
+
